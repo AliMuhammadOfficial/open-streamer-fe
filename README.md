@@ -1,6 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Open Streamer
+
+Open Streamer is a comprehensive open-source streaming platform that allows users to conduct meetings and stream them to platforms like Facebook, YouTube, and more. Users can also schedule live streams and take advantage of advanced features to enhance their streaming experience.
+
+## Features
+
+- **Meeting Streaming**: Stream your meetings live to various platforms.
+- **Multi-Platform Support**: Stream to Facebook, YouTube, and other platforms simultaneously.
+- **Scheduling**: Schedule your live streams in advance.
+- **Advanced Features**: Utilize advanced streaming features for a professional experience.
 
 ## Getting Started
+
+### Prerequisites
+
+- Node.js
+- npm, yarn, pnpm, or bun
+
+### Installation
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/AliMuhammadOfficial/open-streamer.git
+    cd open-streamer
+    ```
+
+2. Install the dependencies:
+
+    ```bash
+    npm install
+    # or
+    yarn install
+    # or
+    pnpm install
+    # or
+    bun install
+    ```
+
+### Running the Development Server
 
 First, run the development server:
 
@@ -16,21 +53,70 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Building for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+To create a production build, run:
 
-## Learn More
+```bash
+npm run build
+# or
+yarn build
+# or
+pnpm build
+# or
+bun build
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Starting the Production Server
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To start the production server, run:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+npm start
+# or
+yarn start
+# or
+pnpm start
+# or
+bun start
+```
 
-## Deploy on Vercel
+## Usage
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Create a Meeting**: Start a new meeting from the dashboard.
+2. **Stream to Platforms**: Select the platforms you want to stream to and start streaming.
+3. **Schedule Streams**: Use the scheduling feature to plan your streams in advance.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contributing
+
+We welcome contributions from the community! To contribute:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix.
+3. Make your changes.
+4. Commit your changes with a descriptive commit message.
+5. Push your changes to your fork.
+6. Create a pull request to the main repository.
+
+### Code of Conduct
+
+Please read our [Code of Conduct](CODE_OF_CONDUCT.md) to understand the expectations for contributing to this project.
+
+### Reporting Issues
+
+If you encounter any issues, please report them on our [issue tracker](https://github.com/AliMuhammadOfficial/open-streamer/issues).
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Acknowledgements
+
+- Thanks to all the contributors who have helped make this project better.
+- Special thanks to the open-source community for their support and contributions.
+
+## Contact
+
+For any inquiries, please contact us at [ali@quantlix.com](mailto:ali@quantlix.com).
+
+Happy Streaming!
