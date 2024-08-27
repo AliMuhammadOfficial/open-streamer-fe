@@ -2,6 +2,9 @@
 
 Open Streamer is a comprehensive open-source streaming platform that allows users to conduct meetings and stream them to platforms like Facebook, YouTube, and more. Users can also schedule live streams and take advantage of advanced features to enhance their streaming experience.
 
+**Note: This project is in its initial development phase. Please visit again later or keep an eye on the repository for updates.**
+
+
 ## Features
 
 - **Meeting Streaming**: Stream your meetings live to various platforms.
