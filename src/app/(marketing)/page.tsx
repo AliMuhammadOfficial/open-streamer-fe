@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ChevronRight, Play, Zap, Users, Globe } from "lucide-react";
+import Link from "next/link";
 
 const LandingPage = () => {
   return (
@@ -17,14 +18,16 @@ const LandingPage = () => {
           transition={{ duration: 0.5 }}
           className="text-2xl font-bold text-primary"
         >
-            OpenStreamer
+          OpenStreamer
         </motion.div>
         <nav>
           <Button variant="ghost">Features</Button>
-          <Button variant="outline" className="ml-4">
-            Log In
+          <Button variant="outline" className="ml-4" asChild>
+            <Link href="/login">Log In</Link>
           </Button>
-          <Button className="ml-2">Sign Up</Button>
+          <Button className="ml-2" asChild>
+            <Link href="/register">Sign Up</Link>
+          </Button>
         </nav>
       </header>
 
