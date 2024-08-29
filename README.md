@@ -83,6 +83,9 @@ pnpm start
 bun start
 ```
 
+![Studio Create Page](/docs/open-streamer-studio-create.png "Studio / Create")
+
+
 ## Usage
 
 1. **Create a Meeting**: Start a new meeting from the dashboard.
