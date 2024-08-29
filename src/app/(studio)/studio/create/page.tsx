@@ -60,7 +60,7 @@ export default function StudioCreatePage() {
     { id: 3, name: "End" },
   ]);
 
-  const [sources] = useState([
+  const [sources] = useState<ISource[]>([
     { id: 1, name: "Webcam", icon: Video, example: "Logitech C920" },
     { id: 2, name: "Microphone", icon: Mic, example: "Blue Yeti" },
     { id: 3, name: "Screen Share", icon: Share2, example: "Primary Monitor" },
@@ -151,27 +151,6 @@ export default function StudioCreatePage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <h4 className="font-semibold mb-2">Available Sources</h4>
-                  {sources.map((source) => (
-                    <Accordion type="single" collapsible key={source.id}>
-                      <AccordionItem value={`source-${source.id}`}>
-                        <AccordionTrigger>
-                          <SourceItem source={source} />
-                        </AccordionTrigger>
-                        <AccordionContent>
-                          Example: {source.example}
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
-                  ))}
-                </div>
-                <div className="bg-secondary p-4 rounded-lg min-h-[200px]">
-                  <h4 className="font-semibold mb-2">Current Scene</h4>
-                  <p className="text-muted-foreground">Drag sources here</p>
-                </div>
-              </div> */}
               <SceneEditor
                 sources={sources}
                 sceneSources={sceneSources}
