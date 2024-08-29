@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import {
   Video,
   Mic,
@@ -37,12 +36,7 @@ import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+
 import {
   Dialog,
   DialogContent,
@@ -53,8 +47,8 @@ import {
 } from "@/components/ui/dialog";
 import Twitch from "@/components/icons/Twitch";
 import SceneSelector from "@/components/studio/SceneSelector";
-import SourceItem from "@/components/studio/SourceItem";
 import DestinationItem from "@/components/studio/DestinationItem";
+import SceneEditor from "@/components/studio/SceneEditor";
 
 export default function StudioCreatePage() {
   const [activeScene, setActiveScene] = useState(0);
@@ -74,6 +68,8 @@ export default function StudioCreatePage() {
     { id: 5, name: "Text", icon: Sliders, example: "Stream Starting Soon" },
     { id: 6, name: "Browser Source", icon: Layout, example: "Twitch Chat" },
   ]);
+
+  const [sceneSources, setSceneSources] = useState([]);
 
   const [destinations, setDestinations] = useState([
     { id: 1, name: "Twitch", icon: Twitch },
@@ -155,7 +151,7 @@ export default function StudioCreatePage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <h4 className="font-semibold mb-2">Available Sources</h4>
                   {sources.map((source) => (
@@ -175,7 +171,12 @@ export default function StudioCreatePage() {
                   <h4 className="font-semibold mb-2">Current Scene</h4>
                   <p className="text-muted-foreground">Drag sources here</p>
                 </div>
-              </div>
+              </div> */}
+              <SceneEditor
+                sources={sources}
+                sceneSources={sceneSources}
+                setSceneSources={setSceneSources}
+              />
             </CardContent>
           </Card>
         </div>
