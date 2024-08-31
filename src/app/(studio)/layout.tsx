@@ -55,13 +55,12 @@ const StreamStudioLayout = ({ children }: { children: React.ReactNode }) => {
             <div className="p-4">
               <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold text-primary">
-                    OpenStreamer
+                  OpenStreamer
                 </h1>
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsSidebarOpen(false)}
-                  
                 >
                   <X className="h-6 w-6" />
                 </Button>
@@ -85,6 +84,18 @@ const StreamStudioLayout = ({ children }: { children: React.ReactNode }) => {
           </motion.aside>
         )}
       </AnimatePresence>
+      <div className="hidden lg:flex flex-col w-64 bg-card border-r border-border">
+        <div className="p-4">
+          <h1 className="text-2xl font-bold text-primary">OpenStreamer</h1>
+        </div>
+        <nav>
+          <ul className="space-y-2">
+            {navItems.map((item) => (
+              <SidebarItem key={item.label} icon={item.icon} label={item.label} />
+            ))}
+          </ul>
+        </nav>
+      </div>
 
       <div className="flex-1 flex flex-col overflow-hidden">
         <header className="bg-card border-b border-border p-4 flex justify-between items-center">
@@ -95,14 +106,7 @@ const StreamStudioLayout = ({ children }: { children: React.ReactNode }) => {
           >
             <Menu className="h-6 w-6" />
           </Button>
-          <Button
-            variant="ghost"
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="hidden lg:flex"
-          >
-            {isSidebarOpen ? "←" : "→"}
-          </Button>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 justify-end w-full">
             <Button
               variant="outline"
               className="bg-destructive text-destructive-foreground"

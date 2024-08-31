@@ -9,13 +9,9 @@ import {
   Share2,
   AlertCircle,
   Save,
-  Pause,
-  Play,
   Facebook,
   Youtube,
   Instagram,
-  Disc3,
-  LucideProps,
 } from "lucide-react";
 import {
   Card,
@@ -49,6 +45,7 @@ import Twitch from "@/components/icons/Twitch";
 import SceneSelector from "@/components/studio/SceneSelector";
 import DestinationItem from "@/components/studio/DestinationItem";
 import SceneEditor from "@/components/studio/SceneEditor";
+import StreamPreviewCard from "./StreamPreviewCard";
 export default function CreatePage() {
   const [activeScene, setActiveScene] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
@@ -97,42 +94,7 @@ export default function CreatePage() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div className="lg:col-span-2 space-y-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Stream Preview</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="aspect-video bg-black rounded-lg flex items-center justify-center relative">
-              <p className="text-white">Stream Preview</p>
-              <div className="absolute top-2 right-2 flex space-x-2">
-                <Button
-                  size="sm"
-                  variant={isRecording ? "destructive" : "secondary"}
-                  onClick={toggleRecording}
-                >
-                  {isRecording ? (
-                    <Pause className="mr-2 h-4 w-4" />
-                  ) : (
-                    <Disc3 className="mr-2 h-4 w-4" />
-                  )}
-                  {isRecording ? "Stop Recording" : "Start Recording"}
-                </Button>
-                <Button
-                  size="sm"
-                  variant={isStreaming ? "destructive" : "secondary"}
-                  onClick={toggleStreaming}
-                >
-                  {isStreaming ? (
-                    <Pause className="mr-2 h-4 w-4" />
-                  ) : (
-                    <Play className="mr-2 h-4 w-4" />
-                  )}
-                  {isStreaming ? "Stop Streaming" : "Start Streaming"}
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <StreamPreviewCard />
 
         <SceneSelector
           scenes={scenes}
