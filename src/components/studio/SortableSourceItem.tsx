@@ -2,7 +2,7 @@ import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-const SortableSourceItem = ({ source }: { source: { id: number; name: string; icon: React.ReactNode } }) => {
+const SortableSourceItem = ({ source }: { source: { id: number; name: string; icon: any } }) => {
   const {
     attributes,
     listeners,
@@ -25,7 +25,7 @@ const SortableSourceItem = ({ source }: { source: { id: number; name: string; ic
       className="bg-card p-3 rounded-md mb-2 cursor-move"
     >
       <div className="flex items-center">
-        {source.icon}
+        <source.icon className="mr-2 h-5 w-5" />
         <span>{source.name}</span>
       </div>
     </div>
