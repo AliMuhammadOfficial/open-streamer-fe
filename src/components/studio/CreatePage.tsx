@@ -45,7 +45,8 @@ import Twitch from "@/components/icons/Twitch";
 import SceneSelector from "@/components/studio/SceneSelector";
 import DestinationItem from "@/components/studio/DestinationItem";
 import SceneEditor from "@/components/studio/SceneEditor";
-import StreamPreviewCard from "./StreamPreviewCard";
+import WebRTCStreamPreview from "./WebRTCStreamPreview";
+
 export default function CreatePage() {
   const [activeScene, setActiveScene] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
@@ -94,7 +95,7 @@ export default function CreatePage() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div className="lg:col-span-2 space-y-6">
-        <StreamPreviewCard />
+        <WebRTCStreamPreview />
 
         <SceneSelector
           scenes={scenes}
