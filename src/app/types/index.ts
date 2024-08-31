@@ -1,13 +1,12 @@
 interface ISource {
   id: number;
   name: string;
-  icon: React.ComponentType;
-  example: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
 }
 
 
 interface IDestination {
   id: number;
   name: string;
-  icon: React.ComponentType;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
 }

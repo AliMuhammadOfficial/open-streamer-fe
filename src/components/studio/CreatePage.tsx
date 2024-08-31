@@ -53,39 +53,31 @@ export default function CreatePage() {
   const [activeScene, setActiveScene] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
-  const [scenes] = useState([
+  const [scenes] = useState<{ id: number; name: string }[]>([
     { id: 1, name: "Main" },
     { id: 2, name: "BRB" },
     { id: 3, name: "End" },
   ]);
 
   const [sources] = useState<ISource[]>([
-    { id: 1, name: "Webcam", icon: Video, example: "Logitech C920" },
-    { id: 2, name: "Microphone", icon: Mic, example: "Blue Yeti" },
-    { id: 3, name: "Screen Share", icon: Share2, example: "Primary Monitor" },
-    { id: 4, name: "Image", icon: Layout, example: "logo.png" },
-    { id: 5, name: "Text", icon: Sliders, example: "Stream Starting Soon" },
-    { id: 6, name: "Browser Source", icon: Layout, example: "Twitch Chat" },
+    { id: 1, name: "Webcam", icon: Video },
+    { id: 2, name: "Microphone", icon: Mic },
+    { id: 3, name: "Screen Share", icon: Share2 },
+    { id: 4, name: "Image", icon: Layout },
+    { id: 5, name: "Text", icon: Sliders },
+    { id: 6, name: "Browser Source", icon: Layout },
   ]);
 
-  const [sceneSources, setSceneSources] = useState([]);
+  const [sceneSources, setSceneSources] = useState<ISource[]>([]);
 
-  const [destinations, setDestinations] = useState<
-    {
-      id: number;
-      name: string;
-      icon: any;
-    }[]
-  >([
+  const [destinations, setDestinations] = useState<IDestination[]>([
     { id: 1, name: "Facebook", icon: Facebook },
     { id: 2, name: "YouTube", icon: Youtube },
   ]);
 
   const addDestination = (newDestination: {
     name: string;
-    icon: () => React.ForwardRefExoticComponent<
-      Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
-    >;
+    icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   }) => {
     setDestinations([...destinations, { id: Date.now(), ...newDestination }]);
   };
@@ -269,7 +261,7 @@ export default function CreatePage() {
             <CardTitle>Stream Destinations</CardTitle>
           </CardHeader>
           <CardContent>
-            {destinations.map((dest) => (
+            {destinations.map((dest: IDestination) => (
               <DestinationItem
                 key={dest.id}
                 destination={dest}

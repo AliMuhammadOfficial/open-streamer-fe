@@ -21,11 +21,15 @@ const SceneEditor = ({
   sceneSources,
   setSceneSources,
 }: {
-  sources: any[];
-  sceneSources: { id: number; name: string; icon: React.ReactNode }[];
-  setSceneSources: any;
+  sources: ISource[];
+  sceneSources: ISource[];
+  setSceneSources: React.Dispatch<React.SetStateAction<ISource[]>>;
 }) => {
   const [activeId, setActiveId] = useState(null);
+  const activeSource: ISource | undefined = activeId
+      ? sources.find((source) => source.id === activeId)
+      : undefined;
+
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -98,7 +102,7 @@ const SceneEditor = ({
             items={sceneSources}
             strategy={verticalListSortingStrategy}
           >
-            {sceneSources.map((source) =>
+            {sceneSources.map((source: ISource) =>
               source && source.id ? (
                 <SortableSourceItem key={source.id} source={source} />
               ) : null
@@ -110,9 +114,7 @@ const SceneEditor = ({
         </div>
       </div>
       <DragOverlay>
-        {activeId ? (
-          <SortableSourceItem source={sources.find((s) => s.id === activeId)} />
-        ) : null}
+        {activeId ? <SortableSourceItem source={activeSource || null} /> : null}
       </DragOverlay>
     </DndContext>
   );
