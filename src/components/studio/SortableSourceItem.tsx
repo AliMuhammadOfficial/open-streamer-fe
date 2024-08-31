@@ -25,7 +25,7 @@ const SortableSourceItem = ({ source }: { source: { id: number; name: string; ic
       className="bg-card p-3 rounded-md mb-2 cursor-move"
     >
       <div className="flex items-center">
-        <source.icon className="mr-2 h-5 w-5" />
+        {source.icon}
         <span>{source.name}</span>
       </div>
     </div>
