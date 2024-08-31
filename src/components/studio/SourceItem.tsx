@@ -12,9 +12,7 @@ const SourceItem = ({
       whileTap={{ scale: 0.98 }}
     >
       <div className="flex items-center">
-        {source.icon && React.isValidElement(source.icon)
-          ? React.createElement(source.icon, { className: "mr-2 h-5 w-5" })
-          : null}
+        {source.icon}
         <span>{source.name}</span>
       </div>
     </motion.div>
