@@ -5,7 +5,7 @@ const DestinationItem = ({
     destination,
     onRemove,
   }: {
-    destination: { id: number; name: string; icon: React.ComponentType };
+    destination: { id: number; name: string; icon: React.ComponentType<{ className: string }> };
     onRemove: (id: number) => void;
   }) => (
     <div className="flex items-center justify-between bg-secondary p-2 rounded-md mb-2">

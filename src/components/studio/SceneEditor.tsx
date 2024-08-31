@@ -21,11 +21,9 @@ const SceneEditor = ({
   sceneSources,
   setSceneSources,
 }: {
-  sources: { id: number; name: string; icon: React.ReactNode }[];
+  sources: any[];
   sceneSources: { id: number; name: string; icon: React.ReactNode }[];
-  setSceneSources: React.Dispatch<
-    React.SetStateAction<{ id: number; name: string; icon: React.ReactNode }[]>
-  >;
+  setSceneSources: any;
 }) => {
   const [activeId, setActiveId] = useState(null);
   const sensors = useSensors(
@@ -43,9 +41,9 @@ const SceneEditor = ({
     const { active, over } = event;
 
     if (active.id !== over.id) {
-      setSceneSources((items) => {
-        const oldIndex = items.findIndex((item) => item.id === active.id);
-        const newIndex = items.findIndex((item) => item.id === over.id);
+      setSceneSources((items: any) => {
+        const oldIndex = items.findIndex((item: any) => item.id === active.id);
+        const newIndex = items.findIndex((item: any) => item.id === over.id);
 
         return arrayMove(items, oldIndex, newIndex);
       });
@@ -64,7 +62,7 @@ const SceneEditor = ({
     ) {
       const newSource = sources.find((source) => source.id === active.id);
       if (newSource) {
-        setSceneSources((prevSources) => [...prevSources, newSource]);
+        setSceneSources((prevSources: any) => [...prevSources, newSource]);
       }
     }
   };

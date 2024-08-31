@@ -16,6 +16,7 @@ import {
   Youtube,
   Instagram,
   Disc3,
+  LucideProps,
 } from "lucide-react";
 import {
   Card,
@@ -71,13 +72,18 @@ export default function StudioCreatePage() {
 
   const [sceneSources, setSceneSources] = useState([]);
 
-  const [destinations, setDestinations] = useState([
-    { id: 1, name: "Twitch", icon: Twitch },
+  const [destinations, setDestinations] = useState<{
+    id: number;
+    name: string;
+    icon: any;
+  }[]>([
+    { id: 1, name: "Facebook", icon: Facebook },
+    { id: 2, name: "YouTube", icon: Youtube },
   ]);
 
   const addDestination = (newDestination: {
     name: string;
-    icon: React.ComponentType;
+    icon: () => React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>;
   }) => {
     setDestinations([...destinations, { id: Date.now(), ...newDestination }]);
   };
@@ -289,7 +295,7 @@ export default function StudioCreatePage() {
                       { name: "YouTube", icon: Youtube },
                       { name: "Twitch", icon: Twitch },
                       { name: "Instagram", icon: Instagram },
-                    ].map((platform) => (
+                    ].map((platform: any) => (
                       <Button
                         key={platform.name}
                         onClick={() => addDestination(platform)}
