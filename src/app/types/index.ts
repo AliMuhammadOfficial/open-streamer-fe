@@ -10,3 +10,8 @@ interface IDestination {
   name: string;
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
 }
+
+interface IMediaStreamOptions {
+  video: boolean | MediaTrackConstraints;
+  audio: boolean | MediaTrackConstraints;
+}

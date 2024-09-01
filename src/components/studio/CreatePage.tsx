@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Video,
   Mic,
@@ -46,6 +46,10 @@ import SceneSelector from "@/components/studio/SceneSelector";
 import DestinationItem from "@/components/studio/DestinationItem";
 import SceneEditor from "@/components/studio/SceneEditor";
 import WebRTCStreamPreview from "./WebRTCStreamPreview";
+import { sanitizeDeviceId } from "@/lib/securityUtils";
+import { handleWebRTCError } from "@/lib/errorUtils";
+import { useMediaDevices } from "@/app/hooks/useMediaDevices";
+import { Label } from "../ui/label";
 
 export default function CreatePage() {
   const [activeScene, setActiveScene] = useState(0);
@@ -91,6 +95,7 @@ export default function CreatePage() {
   const toggleStreaming = () => {
     setIsStreaming(!isStreaming);
   };
+  const { devices, cameras, microphones } = useMediaDevices();
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -140,8 +145,14 @@ export default function CreatePage() {
                       <SelectValue placeholder="Select camera" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="webcam">Webcam</SelectItem>
-                      <SelectItem value="dslr">DSLR</SelectItem>
+                      {cameras.map((camera) => (
+                        <SelectItem
+                          key={camera.deviceId}
+                          value={sanitizeDeviceId(camera.deviceId)}
+                        >
+                          {camera.label}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>
@@ -162,34 +173,48 @@ export default function CreatePage() {
                   <Slider defaultValue={[60]} max={60} step={1} />
                 </div>
               </TabsContent>
-              <TabsContent value="video" className="space-y-4">
+              <TabsContent value="audio" className="space-y-4">
                 <div>
-                  <label className="block mb-2">Camera</label>
+                  <label className="block mb-2">Microphone</label>
                   <Select>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select camera" />
+                      <SelectValue placeholder="Select microphone" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="webcam">Webcam</SelectItem>
-                      <SelectItem value="dslr">DSLR</SelectItem>
+                      {microphones.map((mic) => (
+                        <SelectItem
+                          key={mic.deviceId}
+                          value={sanitizeDeviceId(mic.deviceId)}
+                        >
+                          {mic.label}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>
                 <div>
-                  <label className="block mb-2">Resolution</label>
+                  <label className="block mb-2">Sample Rate</label>
                   <Select>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select resolution" />
+                      <SelectValue placeholder="Select sample rate" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="1080p">1080p</SelectItem>
-                      <SelectItem value="720p">720p</SelectItem>
+                      <SelectItem value="44100">44.1 kHz</SelectItem>
+                      <SelectItem value="48000">48 kHz</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div>
-                  <label className="block mb-2">Frame Rate</label>
+                  <label className="block mb-2">Bitrate</label>
                   <Slider defaultValue={[60]} max={60} step={1} />
+                </div>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="echo-cancellation">Echo Cancellation</Label>
+                  <Switch id="echo-cancellation" />
+                </div>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="noise-suppression">Noise Suppression</Label>
+                  <Switch id="noise-suppression" />
                 </div>
               </TabsContent>
               <TabsContent value="output" className="space-y-4">
@@ -309,4 +334,15 @@ export default function CreatePage() {
       </div>
     </div>
   );
+}
+function setSelectedCamera(sanitizedDeviceId: string) {
+  throw new Error("Function not implemented.");
+}
+
+function setSelectedMicrophone(sanitizedDeviceId: string) {
+  throw new Error("Function not implemented.");
+}
+
+function updateStream(newConstraints: IMediaStreamOptions) {
+  throw new Error("Function not implemented.");
 }

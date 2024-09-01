@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+"use client";
+
+import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,66 +12,74 @@ import {
   MicOff,
   VideoOff,
 } from "lucide-react";
-
-interface MediaState {
-  video: boolean;
-  audio: boolean;
-}
+import { useMediaDevices } from "@/app/hooks/useMediaDevices";
+import { useMediaStream } from "@/app/hooks/useMediaStream";
+import {  toggleTrack } from "@/lib/mediaUtils";
 
 const WebRTCStreamPreview: React.FC = () => {
-  const [stream, setStream] = useState<MediaStream | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
-  const [mediaState, setMediaState] = useState<MediaState>({
-    video: true,
-    audio: true,
-  });
+  const [mediaState, setMediaState] = useState({ video: true, audio: true });
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => {
-    return () => {
-      if (stream) {
-        stream.getTracks().forEach((track) => track.stop());
-      }
+  const { devices, cameras, microphones } = useMediaDevices();
+  const [selectedCamera, setSelectedCamera] = useState<string | undefined>(
+    undefined
+  );
+  const [selectedMicrophone, setSelectedMicrophone] = useState<
+    string | undefined
+  >(undefined);
+
+  const initialConstraints: IMediaStreamOptions = useMemo(() => {
+    return {
+      video: selectedCamera ? { deviceId: { exact: selectedCamera } } : true,
+      audio: selectedMicrophone
+        ? { deviceId: { exact: selectedMicrophone } }
+        : true,
     };
+  }, [selectedCamera, selectedMicrophone]);
+
+  const { stream, error, updateStream } = useMediaStream(initialConstraints);
+
+  useEffect(() => {
+    if (cameras.length > 0 && !selectedCamera) {
+      setSelectedCamera(cameras[0].deviceId);
+    }
+    if (microphones.length > 0 && !selectedMicrophone) {
+      setSelectedMicrophone(microphones[0].deviceId);
+    }
+  }, [cameras, microphones, selectedCamera, selectedMicrophone]);
+
+  useEffect(() => {
+    if (stream && videoRef.current) {
+      videoRef.current.srcObject = stream;
+    }
   }, [stream]);
 
-  const getMedia = async () => {
-    try {
-      const newStream = await navigator.mediaDevices.getUserMedia({
-        video: mediaState.video,
-        audio: mediaState.audio,
+  const toggleMedia = useCallback(
+    (type: "video" | "audio") => {
+      setMediaState((prev) => {
+        const newState = { ...prev, [type]: !prev[type] };
+        if (stream) {
+          toggleTrack(stream, type, newState[type]);
+        }
+        return newState;
       });
-      setStream(newStream);
-      if (videoRef.current) {
-        videoRef.current.srcObject = newStream;
-      }
-    } catch (err) {
-      console.error("Error accessing media devices:", err);
-    }
-  };
+    },
+    [stream]
+  );
 
-  useEffect(() => {
-    if (mediaState.video || mediaState.audio) {
-      getMedia();
-    } else {
-      if (stream) {
-        stream.getTracks().forEach((track) => track.stop());
-        setStream(null);
-      }
-    }
-  }, [mediaState]);
+  const toggleRecording = useCallback(() => {
+    setIsRecording((prev) => !prev);
+  }, []);
 
-  const toggleRecording = () => setIsRecording(!isRecording);
-  const toggleStreaming = () => setIsStreaming(!isStreaming);
+  const toggleStreaming = useCallback(() => {
+    setIsStreaming((prev) => !prev);
+  }, []);
 
-  const toggleVideo = () => {
-    setMediaState((prev) => ({ ...prev, video: !prev.video }));
-  };
-
-  const toggleAudio = () => {
-    setMediaState((prev) => ({ ...prev, audio: !prev.audio }));
-  };
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <Card className="w-full mx-auto">
@@ -98,14 +108,14 @@ const WebRTCStreamPreview: React.FC = () => {
           <Button
             size="sm"
             variant={mediaState.video ? "default" : "secondary"}
-            onClick={toggleVideo}
+            onClick={() => toggleMedia("video")}
           >
             {mediaState.video ? <Camera size={16} /> : <VideoOff size={16} />}
           </Button>
           <Button
             size="sm"
             variant={mediaState.audio ? "default" : "secondary"}
-            onClick={toggleAudio}
+            onClick={() => toggleMedia("audio")}
           >
             {mediaState.audio ? <Mic size={16} /> : <MicOff size={16} />}
           </Button>
