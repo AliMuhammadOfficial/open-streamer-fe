@@ -1,4 +1,3 @@
-// app/stream/page.tsx
 "use client";
 
 import React from "react";
