@@ -257,7 +257,7 @@ const LandingPage = () => {
           </h2>
           <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
             <Input placeholder="Enter your email" className="max-w-xs w-full" />
-            <Button className="w-full sm:w-auto group">
+            <Button className="w-full sm:w-auto group max-w-xs">
               Get Started
               <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
